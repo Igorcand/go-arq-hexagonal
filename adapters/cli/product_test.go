@@ -1,16 +1,16 @@
 package cli_test
 
 import (
-	"testing"
 	"fmt"
+	"testing"
 
-	"github.com/Igorcand/hexagonal/adapters/cli"
-	mock_application "github.com/Igorcand/hexagonal/application/mocks"
+	"github.com/Igorcand/go-arq-hexagonal/adapters/cli"
+	mock_application "github.com/Igorcand/go-arq-hexagonal/application/mocks"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 )
 
-func TestRun(t *testing.T){
+func TestRun(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
@@ -30,7 +30,6 @@ func TestRun(t *testing.T){
 	service.EXPECT().Get(productId).Return(productMock, nil).AnyTimes()
 	service.EXPECT().Enable(gomock.Any()).Return(productMock, nil).AnyTimes()
 	service.EXPECT().Disable(gomock.Any()).Return(productMock, nil).AnyTimes()
-
 
 	resultExpected := fmt.Sprintf("Product ID %s with the name %s has been created with the price %f and status %s", productId, productName, productPrice, productStatus)
 	result, err := cli.Run(service, "create", productId, productName, productPrice)

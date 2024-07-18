@@ -5,7 +5,7 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+	http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,10 +18,11 @@ package cmd
 import (
 	"database/sql"
 	"fmt"
-	"github.com/Igorcand/hexagonal/application"
 	"os"
+
+	dbInfra "github.com/Igorcand/go-arq-hexagonal/adapters/db"
+	"github.com/Igorcand/go-arq-hexagonal/application"
 	"github.com/spf13/cobra"
-	dbInfra "github.com/Igorcand/hexagonal/adapters/db"
 
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/viper"
@@ -29,7 +30,7 @@ import (
 
 var cfgFile string
 
-var db, _ = sql.Open("sqlite3","db.sqlite")
+var db, _ = sql.Open("sqlite3", "db.sqlite")
 var productDb = dbInfra.NewProductDb(db)
 var productService = application.ProductService{Persistence: productDb}
 

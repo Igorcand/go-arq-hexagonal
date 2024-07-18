@@ -3,13 +3,13 @@ package application_test
 import (
 	"testing"
 
-	"github.com/Igorcand/hexagonal/application"
-	mock_application "github.com/Igorcand/hexagonal/application/mocks"
+	"github.com/Igorcand/go-arq-hexagonal/application"
+	mock_application "github.com/Igorcand/go-arq-hexagonal/application/mocks"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 )
 
-func TestProductService_Get(t *testing.T){
+func TestProductService_Get(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
@@ -17,7 +17,7 @@ func TestProductService_Get(t *testing.T){
 	persistence := mock_application.NewMockProductPersistenceInterface(ctrl)
 	persistence.EXPECT().Get(gomock.Any()).Return(product, nil).AnyTimes()
 
-	service:= application.ProductService{
+	service := application.ProductService{
 		Persistence: persistence,
 	}
 
@@ -25,10 +25,9 @@ func TestProductService_Get(t *testing.T){
 	require.Nil(t, err)
 	require.Equal(t, product, result)
 
-
 }
 
-func TestProductService_Save(t *testing.T){
+func TestProductService_Save(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
@@ -36,7 +35,7 @@ func TestProductService_Save(t *testing.T){
 	persistence := mock_application.NewMockProductPersistenceInterface(ctrl)
 	persistence.EXPECT().Save(gomock.Any()).Return(product, nil).AnyTimes()
 
-	service:= application.ProductService{
+	service := application.ProductService{
 		Persistence: persistence,
 	}
 
@@ -44,10 +43,9 @@ func TestProductService_Save(t *testing.T){
 	require.Nil(t, err)
 	require.Equal(t, product, result)
 
-
 }
 
-func TestProductService_Enable(t *testing.T){
+func TestProductService_Enable(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
@@ -57,7 +55,7 @@ func TestProductService_Enable(t *testing.T){
 	persistence := mock_application.NewMockProductPersistenceInterface(ctrl)
 	persistence.EXPECT().Save(gomock.Any()).Return(product, nil).AnyTimes()
 
-	service:= application.ProductService{
+	service := application.ProductService{
 		Persistence: persistence,
 	}
 
@@ -66,7 +64,7 @@ func TestProductService_Enable(t *testing.T){
 	require.Equal(t, product, result)
 }
 
-func TestProductService_EnableDisable(t *testing.T){
+func TestProductService_EnableDisable(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
@@ -76,13 +74,12 @@ func TestProductService_EnableDisable(t *testing.T){
 	persistence := mock_application.NewMockProductPersistenceInterface(ctrl)
 	persistence.EXPECT().Save(gomock.Any()).Return(product, nil).AnyTimes()
 
-	service:= application.ProductService{
+	service := application.ProductService{
 		Persistence: persistence,
 	}
 
 	result, err := service.Disable(product)
 	require.Nil(t, err)
 	require.Equal(t, product, result)
-
 
 }

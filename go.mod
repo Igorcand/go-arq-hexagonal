@@ -1,4 +1,4 @@
-module github.com/Igorcand/hexagonal
+module github.com/Igorcand/go-arq-hexagonal
 
 go 1.16
 

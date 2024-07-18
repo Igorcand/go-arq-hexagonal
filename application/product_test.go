@@ -3,12 +3,12 @@ package application_test
 import (
 	"testing"
 
-	"github.com/Igorcand/hexagonal/application"
-	"github.com/stretchr/testify/require"
+	"github.com/Igorcand/go-arq-hexagonal/application"
 	uuid "github.com/satori/go.uuid"
+	"github.com/stretchr/testify/require"
 )
 
-func TestProduct_Enable(t *testing.T){
+func TestProduct_Enable(t *testing.T) {
 	product := application.Product{}
 	product.Name = "Hello"
 	product.Status = application.DISABLED
@@ -24,7 +24,7 @@ func TestProduct_Enable(t *testing.T){
 	require.Equal(t, "the price must be greater than zero to enable the product", err.Error())
 }
 
-func TestProduct_Disabled(t *testing.T){
+func TestProduct_Disabled(t *testing.T) {
 	product := application.Product{}
 	product.Name = "Hello"
 	product.Status = application.ENABLED
@@ -40,7 +40,7 @@ func TestProduct_Disabled(t *testing.T){
 	require.Equal(t, "the price must be in order to have the product disabled", err.Error())
 }
 
-func TestProdct_IsValid( t *testing.T){
+func TestProdct_IsValid(t *testing.T) {
 	product := application.Product{}
 	product.ID = uuid.NewV4().String()
 	product.Name = "Hello"

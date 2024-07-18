@@ -3,17 +3,16 @@ package db
 import (
 	"database/sql"
 
-	"github.com/Igorcand/hexagonal/application"
+	"github.com/Igorcand/go-arq-hexagonal/application"
 	_ "github.com/mattn/go-sqlite3"
 )
 
 type ProductDb struct {
 	db *sql.DB
-
 }
 
-func NewProductDb(db *sql.DB) *ProductDb{
-	return &ProductDb{db:db}
+func NewProductDb(db *sql.DB) *ProductDb {
+	return &ProductDb{db: db}
 }
 
 func (p *ProductDb) Get(id string) (application.ProductInterface, error) {
@@ -29,15 +28,15 @@ func (p *ProductDb) Get(id string) (application.ProductInterface, error) {
 	return &product, nil
 }
 
-func(p *ProductDb) Save(product application.ProductInterface)(application.ProductInterface, error){
-	var rows int 
+func (p *ProductDb) Save(product application.ProductInterface) (application.ProductInterface, error) {
+	var rows int
 	p.db.QueryRow("Select id from products where id = ?", product.GetId()).Scan(&rows)
-	if rows==0{
+	if rows == 0 {
 		_, err := p.create(product)
 		if err != nil {
 			return nil, err
 		}
-	} else{
+	} else {
 		_, err := p.update(product)
 		if err != nil {
 			return nil, err
