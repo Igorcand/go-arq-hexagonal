@@ -5,9 +5,11 @@ import (
 	"net/http"
 	"os"
 	"time"
+
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
 
+	"github.com/Igorcand/go-arq-hexagonal/adapters/web/handler"
 	"github.com/Igorcand/go-arq-hexagonal/application"
 )
 
@@ -25,6 +27,8 @@ func (w WebServer) Serve(){
 		negroni.NewLogger(),
 	)
 
+	handler.MakeProductHandlers(r, n, w.Service)
+	http.Handle("/", r)
 
 	server := &http.Server{
 		ReadHeaderTimeout: 10 * time.Second,
